@@ -294,8 +294,8 @@ main {
   }
 
   .mini-player__panel {
-    right: auto;
-    left: 50%;
+    right: -100px;
+    left: auto;
     top: calc(46px + 0.6rem);
     transform: translateX(-50%) translateY(-8px);
     min-width: 200px;
