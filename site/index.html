@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+          name="description"
+          content="Un piccolo sito per dire grazie a mamma e papà."
+  />
+  <title>Per Voi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+          rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<audio id="bgAudio" preload="none"></audio>
+
+<!-- MINI PLAYER -->
+<div id="miniPlayer" class="mini-player" aria-label="Lettore musicale">
+  <button id="audioToggle" class="mini-player__toggle" aria-label="Play / Pausa" type="button">
+    <span class="mini-player__icon" aria-hidden="true">♫</span>
+  </button>
+
+  <div class="mini-player__panel" id="miniPlayerPanel">
+    <div class="mini-player__track">
+      <span class="mini-player__note" aria-hidden="true">♪</span>
+      <span class="mini-player__title" id="trackTitle">E yo mamma</span>
+    </div>
+    <div class="mini-player__controls">
+      <button class="mini-player__btn" id="prevBtn" aria-label="Traccia precedente" type="button">&#8249;</button>
+      <button class="mini-player__btn mini-player__btn--play" id="playPauseBtn" aria-label="Play / Pausa" type="button">&#9654;</button>
+      <button class="mini-player__btn" id="nextBtn" aria-label="Traccia successiva" type="button">&#8250;</button>
+    </div>
+    <div class="mini-player__bar">
+      <div class="mini-player__progress" id="playerProgress"></div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- INTRO -->
+  <section id="intro" class="section section--intro" aria-label="Introduzione">
+    <div class="intro__bg" aria-hidden="true"></div>
+
+    <div class="intro__content">
+      <p class="intro__eyebrow">Per voi</p>
+
+      <h1 class="intro__heading">
+        <span id="typed-output"></span>
+      </h1>
+
+      <p class="intro__subtitle">
+        Non sono mai stato bravo a dire certe cose a voce. Quindi ho provato a farlo a modo mio.
+      </p>
+
+      <p class="intro__tagline">
+        Tutto quello che sono oggi nasce da voi.
+      </p>
+
+      <div class="intro__scroll-hint" aria-hidden="true">
+        <span class="scroll-arrow"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- L'INIZIO -->
+  <section class="section section--story" aria-label="L'inizio">
+    <div class="container story-block" data-animate="fade-up">
+      <p class="story-block__eyebrow">Capitolo uno</p>
+      <h2 class="story-block__title">Taranto, 2000</h2>
+      <div class="story-block__content">
+        <p>
+          Il 31 marzo del 2000 è iniziata la mia storia.
+        </p>
+        <p>
+          Sono cresciuto a Taranto. Un bambino curioso, testardo,
+          e con una passione strana per i computer.
+        </p>
+        <p>
+          In casa, però, c'erano due persone che rendevano tutto più semplice.
+        </p>
+      </div>
+
+      <!-- Foto di famiglia animata -->
+      <figure class="family-photo" id="familyPhoto" aria-label="Foto di famiglia">
+        <div class="family-photo__frame">
+          <div class="family-photo__glow" aria-hidden="true"></div>
+          <img
+            src="../assets/images/capitolo1.png"
+            alt="Una foto di famiglia"
+            class="family-photo__img"
+            loading="lazy"
+          />
+          <!-- Overlay con grain per effetto vintage -->
+          <div class="family-photo__grain" aria-hidden="true"></div>
+        </div>
+        <figcaption class="family-photo__caption">
+          Taranto, i primi anni
+        </figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- LE PRIME LEZIONI -->
+  <section class="section section--split" aria-label="Le prime lezioni">
+    <div class="container">
+      <div class="section-heading" data-animate="fade-up">
+        <p class="section-heading__eyebrow">Capitolo due</p>
+        <h2 class="section-heading__title">Le prime lezioni</h2>
+      </div>
+
+      <div class="split-grid">
+
+        <!-- PAPÀ — card con animazione acqua / ripple -->
+        <article class="split-card split-card--water" data-animate="fade-up" id="cardPapa">
+          <p class="split-card__label">Mio padre</p>
+          <h3 class="split-card__title">Sentirmi al sicuro</h3>
+
+          <!-- Canvas acqua: i ripple vengono disegnati qui via JS -->
+          <div class="split-card__scene split-card__scene--water" aria-hidden="true">
+            <canvas class="water-canvas" id="waterCanvas"></canvas>
+            <div class="water-drop" aria-hidden="true">
+              <svg viewBox="0 0 40 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 2C20 2 4 20 4 32a16 16 0 0 0 32 0C36 20 20 2 20 2Z" fill="url(#dg)" opacity="0.85"/>
+                <defs>
+                  <linearGradient id="dg" x1="20" y1="2" x2="20" y2="50" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#bae6fd"/>
+                    <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.55"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+
+          <p class="split-card__text">
+            Ricordo una volta quando da piccolo caddi dentro una fontana con la bicicletta.
+            Tutti ridevano.
+          </p>
+          <p class="split-card__text">
+            Papà mi tirò fuori dall'acqua e si tolse la maglia per coprirmi.
+          </p>
+          <p class="split-card__text">
+            In mezzo a tutte quelle risate, io mi sono sentito al sicuro.
+          </p>
+        </article>
+
+        <!-- MAMMA — card con animazione carta / quaderno -->
+        <article class="split-card split-card--paper" data-animate="fade-up" id="cardMamma">
+          <p class="split-card__label">Mia madre</p>
+          <h3 class="split-card__title">Dire sempre la verità</h3>
+
+          <!-- Scena quaderno animato -->
+          <div class="split-card__scene split-card__scene--paper" aria-hidden="true">
+            <div class="notebook">
+              <div class="notebook__cover"></div>
+              <div class="notebook__page">
+                <span class="notebook__line"></span>
+                <span class="notebook__line"></span>
+                <span class="notebook__line"></span>
+                <span class="notebook__line"></span>
+                <span class="notebook__line"></span>
+                <span class="notebook__writing"></span>
+              </div>
+              <div class="notebook__fold"></div>
+            </div>
+            <div class="paper-bits">
+              <span class="paper-bit"></span>
+              <span class="paper-bit"></span>
+              <span class="paper-bit"></span>
+              <span class="paper-bit"></span>
+              <span class="paper-bit"></span>
+            </div>
+          </div>
+
+          <p class="split-card__text">
+            Alle elementari presi un brutto voto e cercai di cancellarlo con la scolorina.
+            Ovviamente mi beccò subito.
+          </p>
+          <p class="split-card__text">
+            Mi fece un cazziatone memorabile, ma mi insegnò una delle lezioni più importanti
+            della mia vita:
+          </p>
+          <p class="split-card__quote">
+            dire sempre la verità.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline" class="section section--timeline" aria-label="Crescere">
+    <div class="tl-noise" aria-hidden="true"></div>
+    <div class="tl-glow tl-glow--1" aria-hidden="true"></div>
+    <div class="tl-glow tl-glow--2" aria-hidden="true"></div>
+
+    <div class="container">
+      <header class="tl-header">
+        <span class="tl-item__chapter-tag">capitolo tre</span>
+        <h2 class="tl-header__title js-tl-title">Crescere</h2>
+        <p class="tl-header__subtitle js-tl-subtitle">
+          Non sono sempre stato la persona che sono oggi. Ma in ogni fase della mia vita voi ci siete sempre stati.
+        </p>
+      </header>
+
+      <div class="timeline" id="timelineTrack">
+        <div class="timeline__track" aria-hidden="true">
+          <div class="timeline__track-base"></div>
+          <div class="timeline__track-progress" id="tlProgress"></div>
+        </div>
+
+        <article
+                class="tl-item tl-item--left"
+                data-index="1"
+                data-chapter="videogiochi"
+                aria-label="Capitolo 01: Videogiochi"
+        >
+          <div class="tl-item__node-wrap">
+            <div class="tl-item__node" aria-hidden="true">
+              <span class="tl-item__node-glow"></span>
+            </div>
+          </div>
+
+          <div class="tl-item__card">
+            <span class="tl-item__num" aria-hidden="true">01</span>
+            <h3 class="tl-item__title">Videogiochi</h3>
+            <p class="tl-item__desc">
+              La mia passione per l’informatica è iniziata molto presto. Da piccolo cambiavo
+              in continuazione, ma c’era una cosa che restava sempre uguale: il fascino per i
+              computer, per i videogiochi e per tutto quello che c’era dietro uno schermo.
+              Ancora non lo sapevo, ma quella curiosità sarebbe diventata la strada della mia vita.
+            </p>
+            <div class="tl-item__media" role="img" aria-label="Segnaposto per una foto dell'infanzia e dei videogiochi">
+              <img
+                      src="../assets/images/videogiochi.webp"
+                      class="videogiochi-photo__img"
+                      loading="lazy"
+              />
+            </div>
+            <span class="tl-item__chapter-tag">capitolo uno</span>
+          </div>
+        </article>
+
+        <article
+                class="tl-item tl-item--right"
+                data-index="2"
+                data-chapter="scout"
+                aria-label="Capitolo 02: Scout"
+        >
+          <div class="tl-item__node-wrap">
+            <div class="tl-item__node" aria-hidden="true">
+              <span class="tl-item__node-glow"></span>
+            </div>
+          </div>
+
+          <div class="tl-item__card">
+            <span class="tl-item__num" aria-hidden="true">02</span>
+            <h3 class="tl-item__title">Scout</h3>
+            <p class="tl-item__desc">
+              Dai 9 ai 19 anni lo scoutismo è stato una parte importante della mia crescita.
+              Mi ha insegnato responsabilità, spirito di adattamento e il valore delle persone.
+              È stato uno dei percorsi che più mi ha formato, anche se allora non me ne rendevo
+              ancora conto fino in fondo.
+            </p>
+            <div class="tl-item__media" role="img" aria-label="Segnaposto per una foto del periodo scout">
+              <span class="tl-item__media-label">[ PHOTO PLACEHOLDER ]</span>
+            </div>
+            <span class="tl-item__chapter-tag">capitolo due</span>
+          </div>
+        </article>
+
+        <article
+                class="tl-item tl-item--left"
+                data-index="3"
+                data-chapter="prime-uscite"
+                aria-label="Capitolo 03: Prime uscite"
+        >
+          <div class="tl-item__node-wrap">
+            <div class="tl-item__node" aria-hidden="true">
+              <span class="tl-item__node-glow"></span>
+            </div>
+          </div>
+
+          <div class="tl-item__card">
+            <span class="tl-item__num" aria-hidden="true">03</span>
+            <h3 class="tl-item__title">Prime uscite</h3>
+            <p class="tl-item__desc">
+              Poi sono arrivati gli anni delle prime uscite, delle prime compagnie, delle prime
+              versioni di me che cercavano di capire chi diventare. È stato il periodo in cui ho
+              iniziato a guardare il mondo con occhi diversi, a costruirmi e a perdermi un po’,
+              come succede quando si cresce davvero.
+            </p>
+            <div
+                    class="tl-item__media tl-item__media--warm"
+                    role="img"
+                    aria-label="Segnaposto per una foto delle prime uscite"
+            >
+              <span class="tl-item__media-label">[ PHOTO PLACEHOLDER ]</span>
+              <span class="tl-item__light-dot" aria-hidden="true"></span>
+              <span class="tl-item__light-dot" aria-hidden="true"></span>
+              <span class="tl-item__light-dot" aria-hidden="true"></span>
+            </div>
+            <span class="tl-item__chapter-tag">capitolo tre</span>
+          </div>
+        </article>
+
+        <article
+                class="tl-item tl-item--right"
+                data-index="4"
+                data-chapter="relazione"
+                aria-label="Capitolo 04: Prima relazione seria"
+        >
+          <div class="tl-item__node-wrap">
+            <div class="tl-item__node" aria-hidden="true">
+              <span class="tl-item__node-glow"></span>
+            </div>
+          </div>
+
+          <div class="tl-item__card">
+            <span class="tl-item__num" aria-hidden="true">04</span>
+            <h3 class="tl-item__title">Prima relazione seria</h3>
+            <p class="tl-item__desc">
+              A 16 anni ho vissuto la mia prima relazione importante. È stata una delle prime
+              esperienze che mi ha fatto capire cosa significa affezionarsi davvero a qualcuno,
+              spostarsi, mettersi in gioco, uscire dalla propria comfort zone e iniziare a sentire
+              il peso e la bellezza dei legami veri.
+            </p>
+            <div
+                    class="tl-item__media tl-item__media--polaroid"
+                    role="img"
+                    aria-label="Segnaposto per una foto della prima relazione"
+            >
+              <img
+                      src="../assets/images/prima_relazione_seria.jpeg"
+                      class="prima_relazione_seria-photo__img"
+                      loading="lazy"
+              />
+              <div class="tl-item__media-hover-overlay" aria-hidden="true"></div>
+            </div>
+            <span class="tl-item__chapter-tag">capitolo quattro</span>
+          </div>
+        </article>
+
+        <article
+                class="tl-item tl-item--left"
+                data-index="5"
+                data-chapter="torino"
+                aria-label="Capitolo 05: Trasferimento a Torino"
+        >
+          <div class="tl-item__node-wrap">
+            <div class="tl-item__node" aria-hidden="true">
+              <span class="tl-item__node-glow"></span>
+            </div>
+          </div>
+
+          <div class="tl-item__card">
+            <span class="tl-item__num" aria-hidden="true">05</span>
+            <h3 class="tl-item__title">Trasferimento a Torino</h3>
+            <p class="tl-item__desc">
+              A un certo punto ho lasciato Taranto e mi sono trasferito a Torino per il Politecnico.
+              È stato uno dei cambiamenti più grandi della mia vita. Lasciare casa, le abitudini
+              e la vicinanza della famiglia non è stato semplice, ma era anche il primo vero passo
+              verso il futuro che immaginavo per me.
+            </p>
+            <div
+                    class="tl-item__media tl-item__media--parallax"
+                    role="img"
+                    aria-label="Segnaposto per una foto del trasferimento a Torino"
+            >
+              <img
+                      src="../assets/images/trasferimento_a_torino.jpeg"
+                      class="trasferimento_a_torino-photo__img"
+                      loading="lazy"
+              />
+            </div>
+            <span class="tl-item__chapter-tag">capitolo cinque</span>
+          </div>
+        </article>
+
+        <article
+                class="tl-item tl-item--right tl-item--dark"
+                data-index="6"
+                data-chapter="depressione"
+                aria-label="Capitolo 06: Depressione"
+        >
+          <div class="tl-item__node-wrap">
+            <div class="tl-item__node" aria-hidden="true">
+              <span class="tl-item__node-glow"></span>
+            </div>
+          </div>
+
+          <div class="tl-item__card">
+            <span class="tl-item__num" aria-hidden="true">06</span>
+            <div class="tl-item__icon tl-item__icon--muted" aria-hidden="true">◌</div>
+            <h3 class="tl-item__title tl-item__title--heavy">Depressione</h3>
+            <p class="tl-item__desc tl-item__desc--sparse">
+              Nel 2019 è iniziato il periodo più difficile della mia vita. Per quasi due anni
+              mi sono sentito fermo, vuoto, spento. Non riuscivo ad alzarmi dal letto, non avevo
+              direzione, non avevo forze. Ma mentre io ero perso, voi eravate lì. Preoccupati,
+              presenti, pronti a sostenermi in ogni modo possibile.
+            </p>
+            <div
+                    class="tl-item__media tl-item__media--dark"
+                    role="img"
+                    aria-label="Segnaposto per una foto del periodo più difficile"
+            >
+              <img
+                      src="../assets/images/depressione.jpeg"
+                      alt="La vostra forza"
+                      class="depression-photo__img"
+                      loading="lazy"
+              />
+            </div>
+            <span class="tl-item__chapter-tag tl-item__chapter-tag--muted">capitolo sei</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="tl-bridge" id="tlBridge" aria-live="polite">
+        <div class="tl-bridge__line" aria-hidden="true"></div>
+        <p class="tl-bridge__text">
+          Da lì è iniziata la risalita. Lenta, difficile, ma possibile.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIPARTIRE -->
+  <section class="section section--rebuild" aria-label="Ripartire">
+    <div class="container">
+      <div class="section-heading" data-animate="fade-up">
+        <p class="section-heading__eyebrow">Capitolo quattro</p>
+        <h2 class="section-heading__title">Ripartire</h2>
+        <p class="section-heading__subtitle">
+          Quando sono uscito da quel periodo, la strada non era semplice.
+        </p>
+      </div>
+
+      <div class="rebuild-grid" id="rebuildGrid">
+        <div class="mini-card rebuild-card" data-rebuild-card>
+          <div class="mini-card__icon" aria-hidden="true">🔪</div>
+          <p class="mini-card__title">Macellaio</p>
+          <p class="mini-card__text">250€ al mese. Un inizio duro, ma pur sempre un inizio.</p>
+        </div>
+        <div class="mini-card rebuild-card" data-rebuild-card>
+          <div class="mini-card__icon" aria-hidden="true">🍽️</div>
+          <p class="mini-card__title">Cameriere</p>
+          <p class="mini-card__text">1000€ al mese, in un ambiente che non sentivo mio.</p>
+        </div>
+        <div class="mini-card rebuild-card" data-rebuild-card>
+          <div class="mini-card__icon" aria-hidden="true">💡</div>
+          <p class="mini-card__title">Ricostruire</p>
+          <p class="mini-card__text">Giorno dopo giorno ho cercato una strada che mi somigliasse davvero.</p>
+        </div>
+      </div>
+
+      <div class="story-block story-block--narrow rebuild-passione" id="rebuildPassione" data-animate="fade-up">
+        <div class="story-block__content">
+          <p>
+            Ma piano piano sono riuscito a tornare<br />
+            alla mia vera passione:<br />
+            <strong>l'informatica.</strong>
+          </p>
+          <p>
+            Oggi faccio il backend developer.
+          </p>
+        </div>
+      </div>
+
+      <!-- Blocco codice animato -->
+      <div class="code-reveal" id="codeReveal" aria-label="Codice che rappresenta il lavoro da backend developer">
+        <div class="code-reveal__window">
+          <div class="code-reveal__bar" aria-hidden="true">
+            <span class="code-reveal__dot code-reveal__dot--red"></span>
+            <span class="code-reveal__dot code-reveal__dot--yellow"></span>
+            <span class="code-reveal__dot code-reveal__dot--green"></span>
+            <span class="code-reveal__bar-title">backend.js</span>
+          </div>
+          <pre class="code-reveal__pre" aria-live="polite"><code class="code-reveal__code"><span id="codeTyped"></span></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COSA MI AVETE INSEGNATO -->
+  <section class="section section--split" aria-label="Cosa mi avete insegnato">
+    <div class="container">
+      <div class="section-heading" data-animate="fade-up">
+        <p class="section-heading__eyebrow">Capitolo cinque</p>
+        <h2 class="section-heading__title">Cosa mi avete insegnato</h2>
+      </div>
+
+      <div class="split-grid">
+        <!-- PAPÀ — card con animazione forza / scudo pulsante -->
+        <article class="split-card split-card--strength" data-animate="fade-up" id="cardPapaC5">
+          <p class="split-card__label">Papà</p>
+          <h3 class="split-card__title">La forza</h3>
+
+          <!-- Scena forza: scudo con onde di energia -->
+          <div class="split-card__scene split-card__scene--strength" aria-hidden="true">
+            <div class="strength-rings">
+              <span class="strength-ring strength-ring--1"></span>
+              <span class="strength-ring strength-ring--2"></span>
+              <span class="strength-ring strength-ring--3"></span>
+            </div>
+            <div class="strength-shield">
+              <svg viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 2L4 10v18c0 12 8.5 22.5 20 26 11.5-3.5 20-14 20-26V10L24 2Z"
+                      fill="url(#sg)" stroke="rgba(251,191,36,0.4)" stroke-width="1"/>
+                <path d="M18 28l4 4 8-9" stroke="rgba(251,191,36,0.9)"
+                      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="sg" x1="24" y1="2" x2="24" y2="54" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#fde68a" stop-opacity="0.25"/>
+                    <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.1"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="strength-sparks">
+              <span class="strength-spark"></span>
+              <span class="strength-spark"></span>
+              <span class="strength-spark"></span>
+              <span class="strength-spark"></span>
+            </div>
+          </div>
+
+          <p class="split-card__text">
+            Da piccolo dicevo che non volevo diventare come mio padre.
+          </p>
+          <p class="split-card__text">
+            Oggi invece penso l’esatto contrario.
+          </p>
+          <p class="split-card__text">
+            È una delle persone più forti che conosco. Affronta qualsiasi problema senza vacillare.
+            Più passa il tempo, più riconosco in me i suoi stessi comportamenti.
+          </p>
+        </article>
+
+        <!-- MAMMA — card con animazione empatia / cuori fluttuanti -->
+        <article class="split-card split-card--empathy" data-animate="fade-up" id="cardMammaC5">
+          <p class="split-card__label">Mamma</p>
+          <h3 class="split-card__title">L'empatia</h3>
+
+          <!-- Scena empatia: cuori fluttuanti con onda sinusoidale -->
+          <div class="split-card__scene split-card__scene--empathy" aria-hidden="true">
+            <div class="empathy-wave">
+              <svg viewBox="0 0 200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="empathy-wave__path empathy-wave__path--1"
+                      d="M0 30 C25 10, 50 50, 75 30 S125 10, 150 30 S175 50, 200 30"
+                      fill="none" stroke="rgba(244,114,182,0.35)" stroke-width="2"/>
+                <path class="empathy-wave__path empathy-wave__path--2"
+                      d="M0 30 C25 10, 50 50, 75 30 S125 10, 150 30 S175 50, 200 30"
+                      fill="none" stroke="rgba(244,114,182,0.15)" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="empathy-hearts">
+              <span class="empathy-heart empathy-heart--1">♥</span>
+              <span class="empathy-heart empathy-heart--2">♥</span>
+              <span class="empathy-heart empathy-heart--3">♥</span>
+              <span class="empathy-heart empathy-heart--4">♥</span>
+              <span class="empathy-heart empathy-heart--5">♥</span>
+            </div>
+          </div>
+
+          <p class="split-card__text">
+            Da mamma ho imparato il rispetto, la sensibilità, la gentilezza.
+          </p>
+          <p class="split-card__text">
+            Mi ha insegnato a capire le persone, a preoccuparmi per gli altri,
+            ad essere educato e ad entrare in sintonia con chi ho davanti.
+          </p>
+          <p class="split-card__text">
+            Una parte molto importante di quello che sono viene da lei.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- LA VOSTRA FORZA -->
+  <section class="section section--story" aria-label="La vostra forza">
+    <div class="container story-block" data-animate="fade-up">
+      <p class="story-block__eyebrow">Capitolo sei</p>
+      <h2 class="story-block__title">La vostra forza</h2>
+      <div class="story-block__content">
+        <p>
+          La cosa che ammiro di più di voi non è solo quello che avete fatto per me.
+        </p>
+        <p>
+          È come avete affrontato la vita insieme.
+        </p>
+        <p>
+          Siete agli antipodi, eppure siete sempre rimasti uniti.
+          Anche nei momenti peggiori. Mano nella mano.
+        </p>
+      </div>
+
+      <div class="story-block__media" role="img" aria-label="Segnaposto per una foto dei genitori insieme">
+        <img
+                src="../assets/images/la_vostra_forza.jpeg"
+                alt="La vostra forza"
+                class="family-photo__img"
+                loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- OGGI -->
+  <section class="section section--story section--story-alt" aria-label="Oggi">
+    <div class="container story-block" data-animate="fade-up">
+      <p class="story-block__eyebrow">Capitolo sette</p>
+      <h2 class="story-block__title">Oggi</h2>
+      <div class="story-block__content">
+        <p>
+          Oggi sono di nuovo a Torino. Lontano da casa.
+        </p>
+        <p>
+          E forse proprio per questo ho capito una cosa importante.
+        </p>
+        <p>
+          Nonostante tutto, voi siete sempre stati lì.
+          A supportarmi. A sopportarmi. A guidarmi.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RICORDI -->
+  <section id="memories" class="section section--memories" aria-label="Ricordi">
+    <div class="container">
+      <h2 class="section__title" data-animate="fade-up">Ricordi</h2>
+
+      <div class="gallery">
+        <div
+                class="gallery__item"
+                data-src="../assets/images/photo1.jpg"
+                role="button"
+                tabindex="0"
+                aria-label="Apri ricordo 1"
+        >
+          <img src="../assets/images/photo1.jpg" alt="Ricordo 1" loading="lazy" />
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Un ricordo che porto con me</span>
+          </div>
+        </div>
+
+        <div
+                class="gallery__item"
+                data-src="../assets/images/photo2.jpg"
+                role="button"
+                tabindex="0"
+                aria-label="Apri ricordo 2"
+        >
+          <img src="../assets/images/photo2.jpg" alt="Ricordo 2" loading="lazy" />
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Uno di quei momenti che sanno di casa</span>
+          </div>
+        </div>
+
+        <div
+                class="gallery__item"
+                data-src="../assets/images/photo3.jpg"
+                role="button"
+                tabindex="0"
+                aria-label="Apri ricordo 3"
+        >
+          <img src="../assets/images/photo3.jpg" alt="Ricordo 3" loading="lazy" />
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Una parte della nostra storia</span>
+          </div>
+        </div>
+
+        <div
+                class="gallery__item"
+                data-src="../assets/images/photo1.jpg"
+                role="button"
+                tabindex="0"
+                aria-label="Apri ricordo 4"
+        >
+          <img src="../assets/images/photo1.jpg" alt="Ricordo 4" loading="lazy" />
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Un pezzo di vita insieme</span>
+          </div>
+        </div>
+
+        <div
+                class="gallery__item"
+                data-src="../assets/images/photo2.jpg"
+                role="button"
+                tabindex="0"
+                aria-label="Apri ricordo 5"
+        >
+          <img src="../assets/images/photo2.jpg" alt="Ricordo 5" loading="lazy" />
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Un momento che non voglio dimenticare</span>
+          </div>
+        </div>
+
+        <div
+                class="gallery__item gallery__item--video"
+                data-src="../assets/video/memory.mp4"
+                role="button"
+                tabindex="0"
+                aria-label="Apri video ricordo"
+        >
+          <video src="../assets/video/memory.mp4" muted loop preload="none" playsinline></video>
+          <div class="gallery__overlay">
+            <span class="gallery__overlay-text">Un ricordo che continua a vivere</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div
+          id="lightbox"
+          class="lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Visualizzazione media"
+          hidden
+  >
+    <button class="lightbox__close" aria-label="Chiudi" type="button">&times;</button>
+    <button class="lightbox__nav lightbox__nav--prev" aria-label="Ricordo precedente" type="button">&#8249;</button>
+    <div class="lightbox__content"></div>
+    <button class="lightbox__nav lightbox__nav--next" aria-label="Ricordo successivo" type="button">&#8250;</button>
+  </div>
+
+  <!-- LETTERA -->
+  <section id="letter" class="section section--letter" aria-label="Lettera ai genitori">
+    <div class="letter__container">
+
+      <div class="letter__intro" data-animate="fade-up">
+        <p class="section-heading__eyebrow">Capitolo otto</p>
+        <h2 class="section-heading__title">Una lettera per voi</h2>
+        <p class="letter__hint">Clicca sulla busta per aprirla</p>
+      </div>
+
+      <!-- BUSTA -->
+      <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Clicca per aprire la lettera">
+
+          <!-- Corpo busta -->
+          <div class="envelope__body">
+
+            <!-- Foglio della lettera che fuoriesce (dentro il corpo per position absolute) -->
+            <div class="envelope__letter" id="envelopeLetter" aria-live="polite">
+              <div class="envelope__letter-inner">
+                <p class="envelope__letter-salutation">Cari mamma e papà,</p>
+                <p class="envelope__letter-line">
+                  Probabilmente non vi ho mai detto abbastanza quanto vi voglio bene.
+                </p>
+                <p class="envelope__letter-line">
+                  In tanti momenti della mia vita vi ho dato preoccupazioni, problemi e silenzi.
+                  Eppure voi siete sempre rimasti lì.
+                </p>
+                <p class="envelope__letter-line">
+                  Scusatemi se vi ho causato così tanti problemi.<br />
+                  Grazie per esserci sempre stati.
+                </p>
+                <p class="envelope__letter-line">
+                  Tutto quello che sono oggi, nel bene e nel male,<br />
+                  esiste anche grazie a voi.
+                </p>
+                <p class="envelope__letter-signature">
+                  Con tutto il mio amore,<br />
+                  <em>Mattia</em>
+                </p>
+              </div>
+            </div>
+
+            <!-- Lembo superiore (flap) -->
+            <div class="envelope__flap" id="envelopeFlap">
+              <div class="envelope__flap-inner"></div>
+            </div>
+
+            <!-- Triangoli laterali decorativi -->
+            <div class="envelope__side envelope__side--left"  aria-hidden="true"></div>
+            <div class="envelope__side envelope__side--right" aria-hidden="true"></div>
+            <div class="envelope__side envelope__side--bottom" aria-hidden="true"></div>
+
+            <!-- Sigillo al centro -->
+            <div class="envelope__seal" id="envelopeSeal" aria-hidden="true">
+              <span class="envelope__seal-icon">✉</span>
+            </div>
+
+            <!-- Scritta "Aprimi" -->
+            <p class="envelope__open-hint" id="envelopeHint" aria-hidden="true">Aprimi</p>
+          </div>
+
+        </div>
+      </div>
+      <!-- fine busta -->
+
+    </div>
+  </section>
+
+  <!-- FINALE -->
+  <section id="finale" class="section section--finale" aria-label="Messaggio finale">
+    <div class="finale__content">
+      <h2 class="finale__title">
+        Se potessi scegliere di nuovo i miei genitori, sceglierei ancora voi.
+      </h2>
+      <button id="confettiBtn" class="finale__btn" type="button">
+        Un ultimo grazie
+      </button>
+      <p class="finale__signature" id="finalSignature">
+        Vi voglio bene.<br />
+        Mattia
+      </p>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js" defer></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+<script src="script.js" defer></script>
+</body>
+</html>
+
+
+
+
+
