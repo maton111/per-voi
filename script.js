@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const miniPlayer   = document.getElementById("miniPlayer");
 
   const playlist = [
-    { title: "E yo mamma",      src: "../assets/audio/e_yo_mamma.mp3"    },
-    { title: "Altrove",         src: "../assets/audio/altrove.mp3"       },
-    { title: "Lungo la strada", src: "../assets/audio/lungo_la_strada.mp3" },
+    { title: "E yo mamma",      src: "assets/audio/e_yo_mamma.mp3"    },
+    { title: "Altrove",         src: "assets/audio/altrove.mp3"       },
+    { title: "Lungo la strada", src: "assets/audio/lungo_la_strada.mp3" },
   ];
 
   let currentIndex = 0;
