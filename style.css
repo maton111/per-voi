@@ -1621,6 +1621,18 @@ main {
   transition: filter 0.6s ease, transform 0.7s ease;
 }
 
+.scout-photo__img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  /* leggero filtro caldo per mood vintage */
+  filter: brightness(0.92) saturate(0.85) sepia(0.08);
+  transition: filter 0.6s ease, transform 0.7s ease;
+}
+
 @keyframes blink-cursor {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
