@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maton111.github.io/per-voi/sitemap.xml
+
