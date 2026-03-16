@@ -1,1 +1,6 @@
+# File temporanei di sistema
+Thumbs.db
+.DS_Store
+
+# Formati video raw non usati nel sito
 assets/video/*.wmv

@@ -635,6 +635,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const lightboxPrev = lightbox.querySelector(".lightbox__nav--prev");
     const lightboxNext = lightbox.querySelector(".lightbox__nav--next");
 
+    const renderVideoFallback = (src) => {
+      const fallback = document.createElement("div");
+      fallback.className = "lightbox__fallback";
+      fallback.innerHTML = `
+        <p class="lightbox__fallback-title">Video non disponibile qui</p>
+        <p class="lightbox__fallback-text">
+          Il browser o l'hosting attuale potrebbe non supportare questo file video.
+          Succede spesso con file <strong>.MOV</strong> o con deploy statici che usano Git LFS.
+        </p>
+        <a class="lightbox__fallback-link" href="${src}" target="_blank" rel="noopener noreferrer">
+          Prova ad aprire il file direttamente
+        </a>
+      `;
+      lightboxContent.appendChild(fallback);
+    };
+
     const openLightbox = (index) => {
       currentIndex = index;
       const item = galleryArray[index];
@@ -648,6 +664,12 @@ document.addEventListener("DOMContentLoaded", () => {
         video.src = src;
         video.controls = true;
         video.autoplay = true;
+        video.playsInline = true;
+        video.preload = "metadata";
+        video.addEventListener("error", () => {
+          lightboxContent.innerHTML = "";
+          renderVideoFallback(src);
+        }, { once: true });
         lightboxContent.appendChild(video);
       } else {
         const image = document.createElement("img");
